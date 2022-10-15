@@ -1,7 +1,5 @@
 import { Button, Card, Checkbox, Form, Input, Space } from 'antd';
 import React, { useEffect } from 'react';
-import ModalForm from '@src/page/components/modalForm';
-import formItemOptions from './_formItem'
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import { createFromIconfontCN } from '@ant-design/icons';
 import { getCookie } from '@src/utils/cookie';
@@ -39,7 +37,7 @@ const LoginForm: React.FC<ILoginFormProps> = ({ onLogin, loading }) => {
           <div style={{margin:"50px 20px",display:'flex',flexDirection: "column",fontSize:'30px', fontWeight:510,color:"#444CCC",fontFamily:'initial'}}>
             
             <span>欢迎登录<IconFont type="icon-javascript" /></span>
-            <span>综合业务管理平台</span>
+            <span>React练手平台</span>
           </div>
           
           <Form

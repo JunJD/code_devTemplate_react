@@ -25,7 +25,7 @@ const Login: React.FC  = () => {
                  setCookie('userPwd', '', 30 )
               }
               setTimeout(() => {
-                  navigate('/app');
+                  navigate('/home');
               }, 1000);
             }
             setLoading(false);

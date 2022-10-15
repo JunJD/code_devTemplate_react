@@ -2,6 +2,7 @@ import React from 'react';
 import { Navigate, NonIndexRouteObject, useRoutes } from 'react-router-dom';
 import Login from '@src/page/Login';
 import App from '@src/App';
+import Home from '@src/page/Home';
 
 export interface MetaProps {
 	keepAlive?: boolean;
@@ -35,22 +36,22 @@ export const rootRouter: RouteObject[] = [
 		element: <Navigate to="/login" />
 	},
 	{
-		path: "/app",
-		element: <App />,
-		// meta: {
-		// 	requiresAuth: false,
-		// 	title: "主页",
-		// 	key: "login"
-		// }
+		path: "/home",
+		element: <Home />,
+		meta: {
+			requiresAuth: false,
+			title: "主页",
+			key: "login"
+		}
 	},
 	{
 		path: "/login",
 		element: <Login />,
-		// meta: {
-		// 	requiresAuth: false,
-		// 	title: "登录页",
-		// 	key: "login"
-		// }
+		meta: {
+			requiresAuth: false,
+			title: "登录页",
+			key: "login"
+		}
 	},
 	// ...routerArray,
 	{

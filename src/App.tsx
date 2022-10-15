@@ -1,18 +1,10 @@
 import React from 'react';
+import Router from "@src/routers";
 import '@src/App.less';
-import {Button} from 'antd'
-import { useEffect } from 'react';
-import Login from '@src/page/Login'
-import Home from './page/Home';
 
 function App() {
-  useEffect(()=>{
-    console.log(process.env)
-  },[])
   return (
-    <div className="App">
-       <Home />
-    </div>
+       <Router />
   );
 }
 export default App;
