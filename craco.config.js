@@ -8,12 +8,13 @@ module.exports = {
       plugin: CracoAntDesignPlugin,
       options: {
         customizeTheme: {
-          '@primary-color': 'red', // primary 的颜色
+          '@primary-color': '#444CCC', // primary 的颜色
         },
       },
     },
   ],
   webpack:{
+    module:'esnext',
     alias:{
       '@src': resolve('src')
     }

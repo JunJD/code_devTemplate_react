@@ -7,14 +7,17 @@ const cookie = {
   }
 };
 
+
+
 function getBaseUrl(apiUrl:string) {
-    const env = cookie.read('env') || '';
-    const baseURL = "http://localhost:8000/".concat(apiUrl);
+  // console.log()
+  //   const env = cookie.read('env') || '';
+  //   const baseURL = "http://localhost:8000/".concat(apiUrl);
   
-    if (env && env !== 'prod') {
-      const baseURL = "http://localhost:8000/".concat(apiUrl);
-    }
-    return baseURL;
+  //   if (env && env !== 'prod') {
+  //     const baseURL = "http://localhost:8000/".concat(apiUrl);
+  //   }
+    return `${process.env.REACT_APP_baseURL}/`.concat(apiUrl);
   }
 
 const axiosObejct = axios.create({
