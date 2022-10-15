@@ -5,10 +5,11 @@ import { Button, Card, message } from 'antd'
 import Video from '@src/page/component/Assets/Video' // 不在assets/video文件的视频无法使用此组件
 import LoginForm from './LoginForm'
 import myRequest from '@src/utils/myAxios'
-import { getCookie, setCookie } from '@src/utils/cookie'
+import { setCookie } from '@src/utils/cookie'
 
 const Login: React.FC  = () => {
-    const [loading, setLoading] = useState<boolean>(false);
+    const navigate = useNavigate()
+  const [loading, setLoading] = useState<boolean>(false);
   const queryLogin = ({name,password,remember}: any) => {
     setLoading(true);
     myRequest('login',{name,password}).then(
@@ -23,8 +24,13 @@ const Login: React.FC  = () => {
                  setCookie('userName', '', 30)
                  setCookie('userPwd', '', 30 )
               }
+              setTimeout(() => {
+                  navigate('/app');
+              }, 1000);
             }
             setLoading(false);
+
+
         }
     )
   }

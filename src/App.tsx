@@ -3,15 +3,15 @@ import '@src/App.less';
 import {Button} from 'antd'
 import { useEffect } from 'react';
 import Login from '@src/page/Login'
+import Home from './page/Home';
+
 function App() {
   useEffect(()=>{
     console.log(process.env)
   },[])
   return (
     <div className="App">
-       <Login/>
-      
-     
+       <Home />
     </div>
   );
 }
