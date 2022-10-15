@@ -18,6 +18,26 @@ yarn add dotenv-cli
 
 全局安装typescript 可以用tsc --init 初始化tsconfig.json
 
+## axios
+
+使用axios 进行请求
+
+## lodash
+
+js方法集合
+
+## classnames
+
+组件封装，样式神器
+
+## react-router-dom
+
+使用v6版本
+
+## @reduxjs/toolkit
+
+待学习使用
+
 ## 运行命令
 
 ### `npm start`
