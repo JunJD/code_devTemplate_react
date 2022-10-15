@@ -4,7 +4,39 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ## 项目环境
 
-使用nvm进行包管理:
+使用nvm进行包管理:node版本17.0.0
+
+## 配置src路径名：@src
+
+借助node的path模块在craro.config.js 的alias里配置
+
+## react中使用.env文件配置
+
+yarn add dotenv-cli
+
+## tsconfig
+
+全局安装typescript 可以用tsc --init 初始化tsconfig.json
+
+## axios
+
+使用axios 进行请求
+
+## lodash
+
+js方法集合
+
+## classnames
+
+组件封装，样式神器
+
+## react-router-dom
+
+使用v6版本
+
+## @reduxjs/toolkit
+
+待学习使用
 
 ## 运行命令
 
