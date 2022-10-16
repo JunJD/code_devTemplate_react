@@ -1,12 +1,14 @@
-import { Button, Card, Checkbox, Form, Input, Space } from 'antd';
 import React, { useEffect } from 'react';
-import { LockOutlined, UserOutlined } from '@ant-design/icons';
-import { createFromIconfontCN } from '@ant-design/icons';
+import { Button, Card, Checkbox, Form, Input, Space } from 'antd';
+import { LockOutlined, UserOutlined, createFromIconfontCN } from '@ant-design/icons';
 import { getCookie } from '@src/utils/cookie';
+import { IRequestLoginParams } from '@src/page/Login'
+
 interface ILoginFormProps {
-  onLogin: (value:string)=>void,
+  onLogin: ( values: IRequestLoginParams )=> void,
   loading: boolean
 }
+
 const IconFont = createFromIconfontCN({
   scriptUrl: [
     '//at.alicdn.com/t/font_1788044_0dwu4guekcwr.js', // icon-javascript
@@ -32,12 +34,12 @@ const LoginForm: React.FC<ILoginFormProps> = ({ onLogin, loading }) => {
     onLogin( form.getFieldsValue() )
   }
   return (
-    <Card style={{borderTop:'5px solid #444CCC'}}>
+    <Card hoverable style={{borderTop:'5px solid #444CCC'}}>
       <Space direction="vertical" size="middle" style={{ display: 'flex' }}>
           <div style={{margin:"50px 20px",display:'flex',flexDirection: "column",fontSize:'30px', fontWeight:510,color:"#444CCC",fontFamily:'initial'}}>
             
             <span>欢迎登录<IconFont type="icon-javascript" /></span>
-            <span>React练手平台</span>
+            <span>后台管理平台</span>
           </div>
           
           <Form

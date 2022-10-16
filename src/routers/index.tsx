@@ -1,8 +1,8 @@
 import React from 'react';
 import { Navigate, NonIndexRouteObject, useRoutes } from 'react-router-dom';
 import Login from '@src/page/Login';
-import App from '@src/App';
-import Home from '@src/page/Home';
+import { LayoutIndex /*懒加载*/ } from '@src/layout/index'
+import lazyLoad from './utils/lazyLoad';
 
 export interface MetaProps {
 	keepAlive?: boolean;
@@ -21,14 +21,14 @@ export interface RouteObject {
 	isLink?: string;
 }
 
-const metaRouters: never[] = []
+// const metaRouters: never[] = []
 // * 处理路由
-export const routerArray: RouteObject[] = [];
-Object.keys(metaRouters).forEach(item => {
-	Object.keys(metaRouters[item]).forEach((key: any) => {
-		routerArray.push(...metaRouters[item][key]);
-	});
-});
+// export const routerArray: RouteObject[] = [];
+// Object.keys(metaRouters).forEach(item => {
+// 	Object.keys(metaRouters[item]).forEach((key: any) => {
+// 		routerArray.push(...metaRouters[item][key]);
+// 	});
+// });
 
 export const rootRouter: RouteObject[] = [
 	{
@@ -36,14 +36,21 @@ export const rootRouter: RouteObject[] = [
 		element: <Navigate to="/login" />
 	},
 	{
-		path: "/home",
-		element: <Home />,
-		meta: {
-			requiresAuth: false,
-			title: "主页",
-			key: "login"
-		}
+		path:'/app',
+		element:<LayoutIndex/>,
+		children:[
+			{
+				path: "/app/home",
+				element: lazyLoad(React.lazy(() => import("@src/page/Home"))),
+				meta: {
+					requiresAuth: true,
+					title: "主页",
+					key: "login"
+				}
+			},
+		]
 	},
+	
 	{
 		path: "/login",
 		element: <Login />,

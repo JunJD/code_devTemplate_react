@@ -1,6 +1,7 @@
 import React, { useEffect, VideoHTMLAttributes } from 'react'
 import classNames from "classnames"
 import isMousewheel from '@src/utils/isMousewheel'
+import './index.less'
 interface IBaseVideoProps {
     ext?: 
     | 'mp4'
