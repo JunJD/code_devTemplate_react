@@ -10,6 +10,7 @@ import LayoutMenu from "./components/Menu";
 // import LayoutTabs from "./components/Tabs";
 // import LayoutFooter from "./components/Footer";
 import "./index.less";
+
 const { Sider, Content } = Layout;
 const LayoutIndex = () => {
 	// const dispatch = useDispatch();

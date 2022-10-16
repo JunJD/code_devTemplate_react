@@ -50,6 +50,24 @@ export const rootRouter: RouteObject[] = [
 			},
 		]
 	},
+	{
+		path: "/403",
+		element: lazyLoad(React.lazy(() => import("@src/403"))),
+		meta: {
+			requiresAuth: false,
+			title: "403",
+			key: "403"
+		}
+	},
+	{
+		path: "/404",
+		element: lazyLoad(React.lazy(() => import("@src/404"))),
+		meta: {
+			requiresAuth: false,
+			title: "404",
+			key: "404"
+		}
+	},
 	
 	{
 		path: "/login",
