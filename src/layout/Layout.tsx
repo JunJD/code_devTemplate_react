@@ -1,20 +1,20 @@
 import { useEffect } from "react";
 import { Outlet } from "react-router-dom";
 import { Layout } from "antd";
-// import { setAuthButtons } from "@/redux/modules/auth";
-// import { updateCollapse } from "@/redux/modules/menu";
 // import { getAuthorButtons } from "@/api/modules/login";
-// import { RootState, useDispatch, useSelector } from "@/redux";
+import { RootState, useDispatch, useSelector } from "@src/redux";
 import LayoutMenu from "./components/Menu";
-// import LayoutHeader from "./components/Header";
+import LayoutHeader from "./components/Header";
 // import LayoutTabs from "./components/Tabs";
 // import LayoutFooter from "./components/Footer";
 import "./index.less";
+import { updateCollapse } from "@src/redux/modules/menu/reducer";
 
 const { Sider, Content } = Layout;
+
 const LayoutIndex = () => {
-	// const dispatch = useDispatch();
-	// const { isCollapse } = useSelector((state: RootState) => state.menu);
+	const dispatch = useDispatch();
+	const { isCollapse } = useSelector((state: RootState) => state.menu);
 
 
 
@@ -24,30 +24,30 @@ const LayoutIndex = () => {
 	// 	dispatch(setAuthButtons(data!));
 	// };
 
-	// // 监听窗口大小变化
-	// const listeningWindow = () => {
-	// 	window.onresize = () => {
-	// 		return (() => {
-	// 			let screenWidth = document.body.clientWidth;
-	// 			if (!isCollapse && screenWidth < 1200) dispatch(updateCollapse(true));
-	// 			if (!isCollapse && screenWidth > 1200) dispatch(updateCollapse(false));
-	// 		})();
-	// 	};
-	// };
+	// 监听窗口大小变化
+	const listeningWindow = () => {
+		window.onresize = () => {
+			return (() => {
+				let screenWidth = document.body.clientWidth;
+				if (!isCollapse && screenWidth < 1200) dispatch(updateCollapse(true));
+				if (!isCollapse && screenWidth > 1200) dispatch(updateCollapse(false));
+			})();
+		};
+	};
 
-	// useEffect(() => {
-	// 	listeningWindow();
-	// 	getAuthButtonsList();
-	// }, []);
+	useEffect(() => {
+		listeningWindow();
+		// getAuthButtonsList();
+	}, []);
 
 	return (
 		// 这里不用 Layout 组件原因是切换页面时样式会先错乱然后在正常显示，造成页面闪屏效果
 		<section className="container">
-			<Sider  width={220} theme="dark">
+			<Sider  width={220} collapsed={isCollapse}  theme="dark">
 				<LayoutMenu></LayoutMenu>
 			</Sider>
 			<Layout>
-				{/* <LayoutHeader></LayoutHeader> */}
+				<LayoutHeader></LayoutHeader>
 				{/* <LayoutTabs></LayoutTabs> */}
 				<Content>
 					{/* TransitionGroup 会导致 useEffect 加载两次 && 使用路由懒加载第一次进入没有动画，所以暂时不用过渡动画了 */}

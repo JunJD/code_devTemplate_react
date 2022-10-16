@@ -5,7 +5,7 @@ import { TypedUseSelectorHook, useDispatch as useReduxDispatch, useSelector as u
 import reduxThunk from "redux-thunk";
 // import reduxPromise from "redux-promise";
 import global from "@src/redux/modules/global/reducer";
-// import menu from "./modules/menu";
+import menu from "@src/redux/modules/menu/reducer";
 // import tabs from "./modules/tabs";
 import auth from "@src/redux/modules/auth/reducer";
 // import breadcrumb from "./modules/breadcrumb";
@@ -13,7 +13,7 @@ import auth from "@src/redux/modules/auth/reducer";
 // create reducer
 const reducer = combineReducers({
 	global,
-	// menu,
+	menu,
 	// tabs,
 	auth,
 	// breadcrumb
