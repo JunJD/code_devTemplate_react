@@ -1,8 +1,7 @@
 import React from 'react';
-import '@src/App.less';
+import '@src/page/Home/index.less';
 import {Button} from 'antd'
 import { useEffect } from 'react';
-import Login from '@src/page/Login'
 function Home() {
   useEffect(()=>{
     console.log(process.env)

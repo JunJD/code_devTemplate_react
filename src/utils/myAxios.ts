@@ -1,22 +1,15 @@
 import axios from "axios";
 import {notification} from 'antd'
-const cookie = {
-  read: function read(name:string) {
-    var match = document.cookie.match(new RegExp('(^|;\\s*)(' + name + ')=([^;]*)'));
-    return match ? decodeURIComponent(match[3]) : null;
-  }
-};
+import { getToken, setToken } from "./Token";
 
-
+export interface IResReturn {
+  success: boolean,
+  result: unknown,
+  code: number,
+  message: string
+}
 
 function getBaseUrl(apiUrl:string) {
-  // console.log()
-  //   const env = cookie.read('env') || '';
-  //   const baseURL = "http://localhost:8000/".concat(apiUrl);
-  
-  //   if (env && env !== 'prod') {
-  //     const baseURL = "http://localhost:8000/".concat(apiUrl);
-  //   }
     return `${process.env.REACT_APP_baseURL}/`.concat(apiUrl);
   }
 
@@ -42,20 +35,28 @@ axiosObejct.interceptors.response.use(
   error => Promise.reject(error) // reject这个错误信息 让catch捕获 /
 );
 
+const config = {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json;charset=UTF-8'
+  },
+}
+
+let token = getToken()
+if (token) {
+  config.headers['Authorization'] = 'Bearer ' + token// 让每个请求携带token-- ['X-Token']为自定义key 请根据实际情况自行修改
+}
+
 function myRequest(apiName: string, data?: object, option?: object, getCookieArr?: Array<string>) {
     let result:any;
-    return new Promise(function (resolve, reject) {
+    return new Promise<IResReturn>(function (resolve, reject) {
         axiosObejct({
-          method: 'POST',
+          ...config,
           url: getBaseUrl(apiName),
-          headers: {
-            'Content-Type': 'application/json;charset=UTF-8'
-          },
           data,
           ...option
         }).then(function (res) {
           let data = res.data;
-
           if (data.success) {
             //网关
             if (data.result.success) {
@@ -67,6 +68,9 @@ function myRequest(apiName: string, data?: object, option?: object, getCookieArr
                   code: 200,
                   message: '请求成功'
                 });
+                if(apiName===`${process.env.REACT_APP_loginPath}`){
+                  setToken(res.data.accessToken);
+                }
               } else {
                 resolve({
                   success: true,
@@ -74,6 +78,9 @@ function myRequest(apiName: string, data?: object, option?: object, getCookieArr
                   code: 200,
                   message: '请求成功'
                 });
+                if(apiName===`${process.env.REACT_APP_loginPath}`){
+                  setToken(res.data.accessToken);
+                }
               }
             } else {
               var _data$result, _data$result$error, _data$result2, _data$result3, _data$result3$error, _data$result4;

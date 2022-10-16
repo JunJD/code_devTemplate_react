@@ -6,27 +6,32 @@ import Video from '@src/page/component/Assets/Video' // 不在assets/video文件
 import LoginForm from './LoginForm'
 import myRequest from '@src/utils/myAxios'
 import { setCookie } from '@src/utils/cookie'
+export interface IRequestLoginParams {
+  name: string,
+  password: string,
+  remember: boolean
+}
 
 const Login: React.FC  = () => {
     const navigate = useNavigate()
   const [loading, setLoading] = useState<boolean>(false);
-  const queryLogin = ({name,password,remember}: any) => {
+  const requestLogin = ({ name, password, remember }: IRequestLoginParams) => {
     setLoading(true);
-    myRequest('login',{name,password}).then(
-        (res:any)=>{
+    myRequest( `${process.env.REACT_APP_loginPath}`, { name, password } ).then(
+        res=>{
             if(res.success) {
-            message.success(res.message);
+            message.success('欢迎进入后台管理系统');
             // 登录成功后 判断是否选择了勾选密码
             if (remember) {
                 setCookie('userName', name, 30)
-                setCookie('userPwd', password, 30)
+                setCookie('userPwd', password, 30) // 未加密
               }  else {
                  setCookie('userName', '', 30)
                  setCookie('userPwd', '', 30 )
               }
               setTimeout(() => {
-                  navigate('/home');
-              }, 1000);
+                  navigate(`/${process.env.REACT_APP_homePath}`);
+              }, 500);
             }
             setLoading(false);
 
@@ -37,9 +42,11 @@ const Login: React.FC  = () => {
   return (
     
     <div  className="content">
+      
     <Video ext='mp4' name='login_bg_media'/>
-    <div style={{position:'absolute',bottom:'50%',marginBottom:"-248px",right:'10%',display:'flex',width:"400px",height:"500px", justifyContent: "space-around"}}>
-        <LoginForm onLogin={queryLogin} loading={loading}/>
+
+    <div style={{width:"25%",position:"absolute",left:"50%",top:"50%",marginTop:"-220px",marginLeft:"220px"}}>
+        <LoginForm onLogin={requestLogin} loading={loading}/>
     </div>
     </div>
   )
