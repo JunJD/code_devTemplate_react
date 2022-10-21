@@ -48,7 +48,7 @@ const LoginForm: React.FC<ILoginFormProps> = ({ onLogin, loading }) => {
   }
   return (
     <Card hoverable style={{borderTop:'5px solid #444CCC'}}>
-      <Space direction="vertical" size="middle" >
+      {/* <Space direction="vertical" size="middle" > */}
           <div className='proTitle'>
             
             <span>欢迎登录<IconFont type="icon-lanling-zaijianxiangmu" /></span>
@@ -83,7 +83,7 @@ const LoginForm: React.FC<ILoginFormProps> = ({ onLogin, loading }) => {
           </Form>
 
           <Button type="primary" onClick={handleLogin} loading={loading} block>登录</Button>
-      </Space>
+      {/* </Space> */}
       
     </Card>
   )

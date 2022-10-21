@@ -2,33 +2,15 @@ import React from 'react';
 import { Navigate, NonIndexRouteObject, useRoutes } from 'react-router-dom';
 import Login from '@src/page/Login';
 import { LayoutIndex /*懒加载*/ } from '@src/layout/index'
+import ErrorBoundary from '@src/page/ErrorBoundary';
 import lazyLoad from './utils/lazyLoad';
+import UserAdmin from '@src/page/AuthorityCenter/UserAdmin';
 
-export interface MetaProps {
-	keepAlive?: boolean;
-	requiresAuth?: boolean;
-	title: string;
-	key?: string;
+export interface RouteObject extends  NonIndexRouteObject{
+	label?:string,
+	children?:RouteObject[]
 }
-
-export interface RouteObject {
-	caseSensitive?: boolean;
-	children?: RouteObject[];
-	element?: React.ReactNode;
-	index?: boolean;
-	path?: string;
-	meta?: MetaProps;
-	isLink?: string;
-}
-
-// const metaRouters: never[] = []
-// * 处理路由
-// export const routerArray: RouteObject[] = [];
-// Object.keys(metaRouters).forEach(item => {
-// 	Object.keys(metaRouters[item]).forEach((key: any) => {
-// 		routerArray.push(...metaRouters[item][key]);
-// 	});
-// });
+console.log('路由文件执行了');
 
 export const rootRouter: RouteObject[] = [
 	{
@@ -38,45 +20,42 @@ export const rootRouter: RouteObject[] = [
 	{
 		path:'/app',
 		element:<LayoutIndex/>,
+		errorElement:<ErrorBoundary/>,
 		children:[
 			{
-				path: "/app/home",
+				path: "/app/Home",
 				element: lazyLoad(React.lazy(() => import("@src/page/Home"))),
-				meta: {
-					requiresAuth: true,
-					title: "主页",
-					key: "login"
-				}
+				label:"主页"
+			},
+			{
+				path: "/app/AuthorityCenter",
+				label:"权限中心",
+				children:[
+					{
+						path: "/app/AuthorityCenter/UserAdmin",
+						element: <UserAdmin/>,
+						label:"用户账户",
+						handle:{
+							requiresAuth: true
+						}
+					},
+				]
 			},
 		]
 	},
 	{
 		path: "/403",
-		element: lazyLoad(React.lazy(() => import("@src/403"))),
-		meta: {
-			requiresAuth: false,
-			title: "403",
-			key: "403"
-		}
+		element: lazyLoad(React.lazy(() => import("@src/403")))
 	},
 	{
 		path: "/404",
-		element: lazyLoad(React.lazy(() => import("@src/404"))),
-		meta: {
-			requiresAuth: false,
-			title: "404",
-			key: "404"
-		}
+		element: lazyLoad(React.lazy(() => import("@src/404")))
 	},
 	
 	{
 		path: "/login",
 		element: <Login />,
-		meta: {
-			requiresAuth: false,
-			title: "登录页",
-			key: "login"
-		}
+		label:'登录页面'
 	},
 	// ...routerArray,
 	{
@@ -86,7 +65,7 @@ export const rootRouter: RouteObject[] = [
 ];
 
 const Router = () => {
-	const routes = useRoutes(rootRouter as NonIndexRouteObject[]);
+	const routes = useRoutes( rootRouter );
 	return routes;
 };
 

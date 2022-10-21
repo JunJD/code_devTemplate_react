@@ -1,4 +1,4 @@
-import { AppstoreOutlined, MailOutlined, SettingOutlined } from '@ant-design/icons';
+import { AppstoreOutlined, MailOutlined, SettingOutlined,UsergroupAddOutlined, UserOutlined } from '@ant-design/icons';
 import { RootState, useDispatch, useSelector } from '@src/redux';
 import type { MenuProps } from 'antd';
 import { Menu } from 'antd';
@@ -7,12 +7,23 @@ import { useNavigate } from 'react-router-dom';
 
 type MenuItem = Required<MenuProps>['items'][number];
 
-
 const items:MenuItem[] = [
   {
-      "key": "/app/home",
+      "key": "/app/Home",
       "icon": <AppstoreOutlined/>,
       "label": "主页"
+  },
+  {
+    "key": "/app/AuthorityCenter",
+    "icon": <UsergroupAddOutlined />,
+    "children": [
+      {
+          "key": "/app/AuthorityCenter/UserAdmin",
+          "label": "用户账户",
+          "icon": <UserOutlined />,
+      }
+    ],
+    "label": "权限中心"
   },
   {
       "key": "/403",
