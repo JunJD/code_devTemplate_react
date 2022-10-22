@@ -2,9 +2,9 @@ import axios from "axios";
 import {notification} from 'antd'
 import { getlocalStorageToken, setlocalStorageToken } from "./Token";
 
-export interface IResReturn {
+export interface IResReturn<T> {
   success: boolean,
-  result: unknown,
+  result: T,
   code: number,
   message: string
 }
@@ -49,7 +49,7 @@ if (token) {
 
 function myRequest(apiName: string, data?: object, option?: object, getCookieArr?: Array<string>) {
     let result:any;
-    return new Promise<IResReturn>(function (resolve, reject) {
+    return new Promise<IResReturn<any>>(function (resolve, reject) {
         axiosObejct({
           ...config,
           url: getBaseUrl(apiName),
