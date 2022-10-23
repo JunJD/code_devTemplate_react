@@ -1,11 +1,7 @@
 import React from 'react';
 import '@src/page/Home/index.less';
 import {Button} from 'antd'
-import { useEffect } from 'react';
 function Home() {
-  useEffect(()=>{
-    console.log(process.env)
-  },[])
   return (
     <div className="App">
       

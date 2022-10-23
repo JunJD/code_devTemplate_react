@@ -11,7 +11,7 @@ module.exports = {
           '@primary-color': '#444CCC', // primary 的颜色
         },
       },
-    },
+    }
   ],
   webpack:{
     module:'esnext',

@@ -1,10 +1,10 @@
 import axios from "axios";
 import {notification} from 'antd'
-import { getToken, setToken } from "./Token";
+import { getlocalStorageToken, setlocalStorageToken } from "./Token";
 
-export interface IResReturn {
+export interface IResReturn<T> {
   success: boolean,
-  result: unknown,
+  result: T,
   code: number,
   message: string
 }
@@ -42,14 +42,14 @@ const config = {
   },
 }
 
-let token = getToken()
+let token = getlocalStorageToken()
 if (token) {
   config.headers['Authorization'] = 'Bearer ' + token// 让每个请求携带token-- ['X-Token']为自定义key 请根据实际情况自行修改
 }
 
 function myRequest(apiName: string, data?: object, option?: object, getCookieArr?: Array<string>) {
     let result:any;
-    return new Promise<IResReturn>(function (resolve, reject) {
+    return new Promise<IResReturn<any>>(function (resolve, reject) {
         axiosObejct({
           ...config,
           url: getBaseUrl(apiName),
@@ -69,7 +69,7 @@ function myRequest(apiName: string, data?: object, option?: object, getCookieArr
                   message: '请求成功'
                 });
                 if(apiName===`${process.env.REACT_APP_loginPath}`){
-                  setToken(res.data.accessToken);
+                  setlocalStorageToken(res.data.accessToken);
                 }
               } else {
                 resolve({
@@ -79,7 +79,7 @@ function myRequest(apiName: string, data?: object, option?: object, getCookieArr
                   message: '请求成功'
                 });
                 if(apiName===`${process.env.REACT_APP_loginPath}`){
-                  setToken(res.data.accessToken);
+                  setlocalStorageToken(res.data.accessToken);
                 }
               }
             } else {

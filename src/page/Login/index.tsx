@@ -6,6 +6,9 @@ import Video from '@src/page/component/Assets/Video' // 不在assets/video文件
 import LoginForm from './LoginForm'
 import myRequest from '@src/utils/myAxios'
 import { setCookie } from '@src/utils/cookie'
+import { useDispatch } from "@src/redux";
+import { setAuthRouter } from '@src/redux/modules/auth/reducer'
+import { getlocalStorageToken } from "@src/utils/Token";
 export interface IRequestLoginParams {
   name: string,
   password: string,
@@ -13,7 +16,8 @@ export interface IRequestLoginParams {
 }
 
 const Login: React.FC  = () => {
-    const navigate = useNavigate()
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
   const [loading, setLoading] = useState<boolean>(false);
   const requestLogin = ({ name, password, remember }: IRequestLoginParams) => {
     setLoading(true);
@@ -21,10 +25,12 @@ const Login: React.FC  = () => {
         res=>{
             if(res.success) {
             message.success('欢迎进入后台管理系统');
+            dispatch(setAuthRouter(['/ceshiyemian']))
+            // dispatch(setToken(token));
             // 登录成功后 判断是否选择了勾选密码
             if (remember) {
                 setCookie('userName', name, 30)
-                setCookie('userPwd', password, 30) // 未加密
+                setCookie('userPwd', password, 30) // 密码未加密
               }  else {
                  setCookie('userName', '', 30)
                  setCookie('userPwd', '', 30 )
@@ -35,7 +41,6 @@ const Login: React.FC  = () => {
             }
             setLoading(false);
 
-
         }
     )
   }
@@ -45,7 +50,7 @@ const Login: React.FC  = () => {
       
     <Video ext='mp4' name='login_bg_media'/>
 
-    <div style={{width:"25%",position:"absolute",left:"50%",top:"50%",marginTop:"-220px",marginLeft:"220px"}}>
+    <div className='loginCon'>
         <LoginForm onLogin={requestLogin} loading={loading}/>
     </div>
     </div>

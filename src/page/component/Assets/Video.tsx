@@ -20,7 +20,7 @@ const Video: React.FC<IVideoProps>  = ( props ) => {
       // chrome
       isMousewheel('ban')
       return ()=>{
-        isMousewheel('allow')
+        isMousewheel('allow') // 不知为什么没效果，不过没任何影响 
       }
     },[])
   return (

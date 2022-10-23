@@ -15,9 +15,11 @@
     "cra-template-typescript": "1.2.0",
     "craco-antd": "^2.0.0",
     "dotenv-cli": "^6.0.0",
+    "immer": "^9.0.15",
     "lodash": "^4.17.21",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-redux": "^8.0.4",
     "react-router-dom": "^6.4.2",
     "react-scripts": "5.0.1"
   },
