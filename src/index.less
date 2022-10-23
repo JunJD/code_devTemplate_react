@@ -1,3 +1,8 @@
+@font-face {
+  font-family: 'alimama';
+  src: url("./assets/font/alimama/Alimama_ShuHeiTi_Bold.ttf");
+}
+
 body {
   overflow: hidden;
   margin: 0;
@@ -9,9 +14,46 @@ body {
   background-image: url(./../public/body_bg.jpg);
 	background-repeat: no-repeat;
 	background-size: 100% 100%;
+  
+  .pdb-16 {
+    padding-bottom: 16px;
+  }
+  .pdb-12 {
+    padding-bottom: 12px;
+  }
+  .pdb-8 {
+    padding-bottom: 8px;
+  }
+  .mg-16 {
+    margin: 16px;
+  }
+  .mg-8 {
+    margin: 8px;
+  }
+  .mg-10 {
+    margin: 10px;
+  }
+  .mgt-10{
+    margin:10px 0 0;
+  }
+  
+
+  .myCard {
+    box-shadow: 0 1px 1px 0 rgba(0, 0, 0, .15);
+    border-radius: 5px;
+  }
+ 
+  .myCard:hover {
+    box-shadow: 0 5px 5px 0 rgba(0, 0, 0, .25);
+    border-radius: 5px;
+    transition: all .2s ease-in-out;
+  }
+
+
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+

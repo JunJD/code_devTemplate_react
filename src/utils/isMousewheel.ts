@@ -6,9 +6,10 @@ export default (type:isMw)=>{
           if (event.ctrlKey || event.metaKey) {
             event.preventDefault();
           } else {
-            console.log(12313);
+            // console.log(12313);
           }
         },
         { passive: type === 'allow' },
       );
+      // console.log(type === 'allow')
 }

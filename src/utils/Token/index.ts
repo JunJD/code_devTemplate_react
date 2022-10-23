@@ -1,14 +1,14 @@
 
 const TokenKey = 'DAdmin'
 
-export function getToken() {
+export function getlocalStorageToken() {
   return localStorage.getItem(TokenKey)
 }
 
-export function setToken(token:string) {
+export function setlocalStorageToken(token:string) {
   localStorage.setItem(TokenKey,token)
 }
 
-export function removeToken() {
+export function removelocalStorageToken() {
   localStorage.removeItem(TokenKey)
 }
