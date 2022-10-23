@@ -1,27 +1,24 @@
 import {IColumn} from '@src/page/components/baseTable'
 export default [
     {
-        title: <span style={{color:"red"}}>Name</span>,
-        dataIndex: 'name',
-        width: 150,
+        title: "ID",
+        dataIndex: 'id',
+        align: "center",
+        width: 50
+    },
+    {
+        title: 'Name',
+        dataIndex: 'user_name',
         align: "center"
     },
     {
         title: 'Email',
-        dataIndex: 'menu_code',
-        width: 180,
+        dataIndex: 'email',
         align: "center"
     },
     {
-        title: 'Status',
-        dataIndex: 'parent_id',
-        width: 100,
-        align: "center"
-    },
-    {
-        title: 'LastAcess',
-        dataIndex: 'path',
-        width: 150,
+        title: 'Statu',
+        dataIndex: 'salt',
         align: "center"
     }
 ] as IColumn[]

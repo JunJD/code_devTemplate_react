@@ -16,7 +16,6 @@ const AuthRouter = (props: { children: JSX.Element }) => {
 	const { pathname } = useLocation();
 	const route = searchRoute(pathname, rootRouter);
 	// * 判断当前路由是否需要访问权限(不需要权限直接放行)
-	console.log(route)
 	if (!route.handle?.requiresAuth) {
 		return props.children;
 	}
@@ -29,7 +28,6 @@ const AuthRouter = (props: { children: JSX.Element }) => {
 	// * Static Router(静态路由，必须配置首页地址，否则不能进首页获取菜单、按钮权限等数据)，获取数据的时候会loading，所有配置首页地址也没问题
 	const staticRouter = [`/${process.env.REACT_APP_homePath}`,"/app/AuthorityCenter/UserAdmin", "/403",'/404'];
 	const routerList = authRouter.concat(staticRouter);
-	console.log(routerList)
 	// * 如果访问的地址没有在路由表中重定向到403页面
 	if (routerList.indexOf( pathname ) == -1) return <Navigate to="/403" />;
 

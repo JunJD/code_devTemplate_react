@@ -2,26 +2,24 @@ import myRequest, {IResReturn} from '@src/utils/myAxios';
 import {  Table, TablePaginationConfig, TableProps, Tag } from 'antd';
 import type {  ColumnProps, ColumnsType, ColumnType } from 'antd/es/table';
 import React, { useEffect, useRef, useState } from 'react';
-
+import './index.less'
 interface IQuery {
-    /** 请求地址 */
-    url: string
-    /** 请求参数 */
-    params?: any
-    /** 是否自动请求 */
-    auto?: boolean
+    url: string    /** 请求地址 */
+    params?: any    /** 请求参数 */
+    auto?: boolean    /** 是否自动请求 */
 }
 
-export interface IColumn extends ColumnProps<unknown> {
+export interface IColumn extends ColumnProps<any> {
     /** 行显隐藏 */
-    show: boolean
+    show?: boolean
 }
 
-interface IbaseTable {
-    columns: IColumn[] ,
-    query?: IQuery,
-    dataSource?: any,
-    pagination?: TablePaginationConfig | false
+interface IbaseTable extends TableProps<any> {
+    columns: IColumn[],
+    query?: IQuery, // 核心api
+    dataSource?: any, 
+    pagination?: TablePaginationConfig | false,
+    rowHighlight?: boolean // hover行高亮?
 }
 
 interface IResult {
@@ -31,7 +29,7 @@ interface IResult {
 }
 
 const BaseTable: React.FC<IbaseTable> = (props) => {
-    const { columns, query, dataSource: data, pagination, ...ommited } = props
+    const { columns, query, dataSource: data, pagination, rowHighlight, ...ommited } = props
 
     const ref_page = useRef({ current: 1, pageSize: 10 }) 
     const ref_auto = useRef<boolean | undefined>(query?.auto ?? true)
@@ -44,7 +42,6 @@ const BaseTable: React.FC<IbaseTable> = (props) => {
     const queryHandle = async(pagination: TablePaginationConfig = _pagination as TablePaginationConfig) => {
         const { current, pageSize } = pagination
         const { url, params } = query ?? {}
-        console.log('url,params')
         if (url) {
             const res: IResReturn<IResult> = await myRequest(url, { page: current, size: pageSize, ...params })
             const { success, result } = res
@@ -62,7 +59,6 @@ const BaseTable: React.FC<IbaseTable> = (props) => {
     const autoQuery = () => {
         if (ref_timer.current) clearTimeout(ref_timer.current)
         ref_timer.current = setTimeout(() => {
-            console.log('queryHandle')
             queryHandle()
         }, 400)
     }
@@ -82,12 +78,13 @@ const BaseTable: React.FC<IbaseTable> = (props) => {
     }, [_pagination])
 
 
-    const tableProps: TableProps<unknown> = {
+    const tableProps: TableProps<any> = {
+        rowClassName:props.rowClassName ?? rowHighlight ? ()=>'table_card':undefined,
         size: 'small',
         dataSource,
         rowKey: 'id',
         columns: columns
-            ?.filter(col => (col.show === undefined ? true : col.show)) as ColumnsType<unknown>,
+            ?.filter(col => (col.show === undefined ? true : col.show)) as ColumnsType<any>,
         pagination:
             _pagination === false
                 ? false
@@ -106,7 +103,7 @@ const BaseTable: React.FC<IbaseTable> = (props) => {
     }
 
     return (
-        <Table {...(tableProps as any)} />
+        <Table {...(tableProps)} />
     )
 };
 
