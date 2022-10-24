@@ -1,7 +1,7 @@
 import { MenuFoldOutlined, MenuUnfoldOutlined } from "@ant-design/icons";
 import { RootState, useDispatch, useSelector } from "@src/redux";
 import { updateCollapse } from "@src/redux/modules/menu/reducer";
-
+import './index.less'
 const CollapseIcon = () => {
 	const dispatch = useDispatch();
 	const { isCollapse } = useSelector((state: RootState) => state.menu);
@@ -10,7 +10,6 @@ const CollapseIcon = () => {
 		<div
 			className="collapsed"
 			onClick={() => {
-                console.log(isCollapse)
 				dispatch(updateCollapse(!isCollapse));
 			}}
 		>

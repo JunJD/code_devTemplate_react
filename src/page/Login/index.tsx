@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import './index.less'
-import { Button, Card, message } from 'antd'
+import { Button, Card, Col, message, Row } from 'antd'
 import Video from '@src/page/component/Assets/Video' // 不在assets/video文件的视频无法使用此组件
 import LoginForm from './LoginForm'
 import myRequest from '@src/utils/myAxios'
@@ -50,8 +50,13 @@ const Login: React.FC  = () => {
       
     <Video ext='mp4' name='login_bg_media'/>
 
-    <div className='loginCon'>
-        <LoginForm onLogin={requestLogin} loading={loading}/>
+    <div className='Loginpra'>
+    <Row className='Loginrow'>
+      <Col push={18} span={6}>
+            <LoginForm onLogin={requestLogin} loading={loading}/>
+      </Col>
+    </Row>
+      
     </div>
     </div>
   )

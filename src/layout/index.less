@@ -10,6 +10,36 @@
 			background-color: #41444b;
 		}
 	}
+	.loginOut{
+		color:#fff ;
+		font-size:20px ;
+		text-align:center;
+		padding-bottom:20px;
+		white-space:nowrap;
+		.dispalyNone{
+			color: transparent;
+			span{
+				display: none;
+			}
+		}
+		span{
+			display: inline-block;
+			transition: all .2s;
+			// resize: both;
+			
+			margin-right: 10px;
+			cursor: pointer;
+		}
+	}
+	.loginOut:hover{
+		cursor: pointer;
+		color: red;
+	}
+	.logo {
+		height: 31px;
+		margin: 24px;
+		background: rgba(255, 255, 255, 0.3);
+	}
 	.ant-layout {
 		/* 防止 tabs 超出不收缩 */
 		overflow-x: hidden;

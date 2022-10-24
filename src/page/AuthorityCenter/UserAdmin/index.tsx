@@ -47,13 +47,14 @@ const UserAdim: React.FC = () => {
         </Col>
         <Col span={6} offset={12}>
           <Input 
-          size="large"
-          bordered={false} 
-          className='myCard' 
-          allowClear 
-          placeholder="Search" 
-          prefix={<SearchOutlined />} 
-          onChange={handleSearch()} />
+            size="large"
+            bordered={false} 
+            className='myCard' 
+            allowClear 
+            placeholder="Search" 
+            prefix={<SearchOutlined />} 
+            onChange={handleSearch()} 
+          />
         </Col>
         <Col span={3} offset={1} >
           <Select

@@ -1,30 +1,20 @@
 import { AppstoreOutlined, MailOutlined, SettingOutlined,UsergroupAddOutlined, UserOutlined } from '@ant-design/icons';
 import { RootState, useDispatch, useSelector } from '@src/redux';
+import myRequest from '@src/utils/myAxios';
 import type { MenuProps } from 'antd';
 import { Menu } from 'antd';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-
+import {setMenuList} from '@src/redux/modules/menu/reducer'
 type MenuItem = Required<MenuProps>['items'][number];
 
-const items:MenuItem[] = [
+const baseItems:MenuItem[] = [
   {
       "key": "/app/Home",
       "icon": <AppstoreOutlined/>,
       "label": "主页"
   },
-  {
-    "key": "/app/AuthorityCenter",
-    "icon": <UsergroupAddOutlined />,
-    "children": [
-      {
-          "key": "/app/AuthorityCenter/UserAdmin",
-          "label": "用户账户",
-          "icon": <UserOutlined />,
-      }
-    ],
-    "label": "权限中心"
-  },
+
   {
       "key": "/403",
       "icon": <MailOutlined/>,
@@ -47,33 +37,31 @@ const items:MenuItem[] = [
   }
 ]
 
-// submenu keys of first level
-const rootSubmenuKeys = ['sub1', 'sub2', 'sub4'];
-
 const LayoutMenu: React.FC = () => {
   const navigate = useNavigate()
-  const [openKeys, setOpenKeys] = useState(['sub1']);
+  const dispatch = useDispatch();
+  useEffect(()=>{
+    myRequest( 'menu/get', {  } ).then(res=>{
+      if(res.success){
+      dispatch(setMenuList(res.result.data))
+      }
+
+    })
+  },[])
+
+  const { menuList } = useSelector((state: RootState) => state.menu);
+  
+  const items = baseItems.concat(menuList as MenuItem[])
 
   const onSelect:MenuProps['onSelect'] = key => {
-    console.log(key)
     navigate(key.key)
   }
-  const onOpenChange: MenuProps['onOpenChange'] = keys => {
-    const latestOpenKey = keys.find(key => openKeys.indexOf(key) === -1);
-    if (rootSubmenuKeys.indexOf(latestOpenKey!) === -1) {
-      setOpenKeys(keys);
-    } else {
-      setOpenKeys(latestOpenKey ? [latestOpenKey] : []);
-    }
-  };
 
   return (
    <div className='menu'>
      <Menu
       mode="inline"
-      openKeys={openKeys}
       theme="dark"
-      onOpenChange={onOpenChange}
       items={items}
       onSelect={onSelect}
     />

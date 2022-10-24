@@ -47,7 +47,7 @@ const LoginForm: React.FC<ILoginFormProps> = ({ onLogin, loading }) => {
     onLogin( form.getFieldsValue() )
   }
   return (
-    <Card hoverable style={{borderTop:'5px solid #444CCC'}}>
+    <Card hoverable style={{borderTop:'5px solid #444CCC',width:"300px"}}>
       {/* <Space direction="vertical" size="middle" > */}
           <div className='proTitle'>
             

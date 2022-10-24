@@ -5,7 +5,7 @@ import CollapseIcon from "./component/CollapseIcon";
 // import AssemblySize from "./components/AssemblySize";
 // import Language from "./components/Language";
 // import Theme from "./components/Theme";
-// import Fullscreen from "./components/Fullscreen";
+import Fullscreen from "./component/Fullscreen";
 import "./index.less";
 
 const LayoutHeader = () => {
@@ -15,15 +15,12 @@ const LayoutHeader = () => {
 		<Header>
 			<div className="header-lf">
 				<CollapseIcon />
-				{/* <BreadcrumbNav /> */}
 			</div>
-			<div className="header-ri">
-				{/* <AssemblySize />
-				<Language />
-				<Theme />
-				<Fullscreen />
-				<span className="username">Hooks</span>
-				<AvatarIcon /> */}
+			<div className="header-lr">
+				<Fullscreen/>
+				<div className="avatar">
+					me
+				</div>
 			</div>
 		</Header>
 	);

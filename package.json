@@ -21,7 +21,8 @@
     "react-dom": "^18.2.0",
     "react-redux": "^8.0.4",
     "react-router-dom": "^6.4.2",
-    "react-scripts": "5.0.1"
+    "react-scripts": "5.0.1",
+    "screenfull": "^6.0.2"
   },
   "scripts": {
     "start": "dotenv -e .local.single.env -e .env.dev craco start",
