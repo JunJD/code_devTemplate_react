@@ -9,14 +9,35 @@ import {
 	LoginOutlined
   } from '@ant-design/icons';
 import "./index.less";
-import { updateCollapse } from "@src/redux/modules/menu/reducer";
+import { setMenuList, updateCollapse } from "@src/redux/modules/menu/reducer";
+import myRequest from "@src/utils/myAxios";
+import { setAuthRouter } from "@src/redux/modules/auth/reducer";
 
 const { Sider, Content } = Layout;
+
+function AuthFlat(obj: { key: any; children: string | any[]; }, res:any[] = []) { // 默认初始结果数组为[]
+	res.push(`/app/${obj.key}`); 
+	if (obj.children && obj.children.length) {
+	  for(const item of obj.children) {
+		AuthFlat(item, res);
+	  }
+	}
+	return res;
+}
 
 const LayoutIndex = () => {
 	const dispatch = useDispatch();
 	const { isCollapse } = useSelector((state: RootState) => state.menu);
-
+	useEffect(()=>{
+		myRequest( 'menu/get', {  } ).then(res=>{
+		  if(res.success){
+		  	dispatch(setMenuList(res.result.data))
+		  	dispatch(setAuthRouter(res.result.data.map((item:any)=>{
+				return AuthFlat(item)
+			}).flat(Infinity)))
+		  }
+		})
+	  },[])
 
 
 	// // 获取按钮权限列表

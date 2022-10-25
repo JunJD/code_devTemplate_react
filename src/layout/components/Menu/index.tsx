@@ -3,55 +3,42 @@ import { RootState, useDispatch, useSelector } from '@src/redux';
 import myRequest from '@src/utils/myAxios';
 import type { MenuProps } from 'antd';
 import { Menu } from 'antd';
-import React, { useEffect, useState } from 'react';
+import React, { ReactNode, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import {setMenuList} from '@src/redux/modules/menu/reducer'
+import Icon from '@src/page/component/Icon';
 type MenuItem = Required<MenuProps>['items'][number];
+interface ImapTree {
+  children?: any[],
+  key: any,
+  label: any,
+  icon: string
+}
 
 const baseItems:MenuItem[] = [
   {
       "key": "/app/Home",
-      "icon": <AppstoreOutlined/>,
+      "icon": <Icon icon={'AppstoreOutlined'}/>,
       "label": "主页"
-  },
-
-  {
-      "key": "/403",
-      "icon": <MailOutlined/>,
-      "children": [
-          {
-              "key": "403",
-              "label": "无权限页面"
-          },
-          {
-              "key": "404",
-              "label": "无此页面"
-          }
-      ],
-      "label": "错误页面"
-  },
-  {
-      "key": "/login",
-      "icon": <SettingOutlined/>,
-      "label": "登录页面"
   }
 ]
 
+const mapTree = (org: ImapTree):any => {
+  const haveChildren = Array.isArray(org.children) && org.children.length > 0;
+  return {
+       key : org.key,
+       label: org.label,
+       icon: <Icon icon={org.icon}/>,
+       children:haveChildren ? org?.children?.map((i:ImapTree) => mapTree(i)) : undefined,
+   }
+}
+
 const LayoutMenu: React.FC = () => {
   const navigate = useNavigate()
-  const dispatch = useDispatch();
-  useEffect(()=>{
-    myRequest( 'menu/get', {  } ).then(res=>{
-      if(res.success){
-      dispatch(setMenuList(res.result.data))
-      }
-
-    })
-  },[])
 
   const { menuList } = useSelector((state: RootState) => state.menu);
-  
-  const items = baseItems.concat(menuList as MenuItem[])
+  const items = baseItems.concat((menuList as ImapTree[]).map(item=>{
+    return mapTree(item)
+  }))
 
   const onSelect:MenuProps['onSelect'] = key => {
     navigate(key.key)

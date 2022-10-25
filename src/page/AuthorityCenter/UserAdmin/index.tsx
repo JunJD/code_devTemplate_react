@@ -8,7 +8,7 @@ import { debounce } from 'lodash';
 
 const scrollX = document.body.clientWidth - 220 - 100
 
-const UserAdim: React.FC = () => {
+const MenuManagement: React.FC = () => {
   const { columns: dynamicColumns, CtrlButton } = useDynamicColumns(_columns )
   const [ query, setQuery ] = useState( {
     url: 'admin/get',
@@ -112,4 +112,4 @@ const UserAdim: React.FC = () => {
   )
 };
 
-export default UserAdim;
+export default MenuManagement;

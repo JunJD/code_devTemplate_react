@@ -5,12 +5,11 @@ import { LayoutIndex /*懒加载*/ } from '@src/layout/index'
 import ErrorBoundary from '@src/page/ErrorBoundary';
 import lazyLoad from './utils/lazyLoad';
 import UserAdmin from '@src/page/AuthorityCenter/UserAdmin';
-
+import MenuManagement from '@src/page/AuthorityCenter/MenuManagement';
 export interface RouteObject extends  NonIndexRouteObject{
 	label?:string,
 	children?:RouteObject[]
 }
-console.log('路由文件执行了');
 
 export const rootRouter: RouteObject[] = [
 	{
@@ -35,6 +34,14 @@ export const rootRouter: RouteObject[] = [
 						path: "/app/AuthorityCenter/UserAdmin",
 						element: <UserAdmin/>,
 						label:"用户账户",
+						handle:{
+							requiresAuth: true
+						}
+					},
+					{
+						path: "/app/AuthorityCenter/MenuManagement",
+						element: <MenuManagement/>,
+						label:"菜单管理",
 						handle:{
 							requiresAuth: true
 						}
