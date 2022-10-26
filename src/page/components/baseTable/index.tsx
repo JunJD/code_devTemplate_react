@@ -1,7 +1,8 @@
 import myRequest, {IResReturn} from '@src/utils/myAxios';
-import {  Table, TablePaginationConfig, TableProps, Tag } from 'antd';
+import {  Form, FormInstance, Table, TablePaginationConfig, TableProps, Tag } from 'antd';
 import type {  ColumnProps, ColumnsType, ColumnType } from 'antd/es/table';
 import React, { useEffect, useRef, useState } from 'react';
+import EditableCell from './Cell';
 import './index.less'
 interface IQuery {
     url: string    /** 请求地址 */
@@ -11,7 +12,10 @@ interface IQuery {
 
 export interface IColumn extends ColumnProps<any> {
     /** 行显隐藏 */
-    show?: boolean
+    show?: boolean,
+    editItem?: boolean,
+    inputType?: 'select' | 'number' | 'timePicker' | 'input' | undefined,
+    options?: any[]
 }
 
 interface IbaseTable extends TableProps<any> {
@@ -19,6 +23,8 @@ interface IbaseTable extends TableProps<any> {
     query?: IQuery, // 核心api
     dataSource?: any, 
     pagination?: TablePaginationConfig | false,
+    editTable?: boolean | undefined,
+    editForm?: FormInstance<any>,
     rowHighlight?: boolean // hover行高亮?
 }
 
@@ -29,7 +35,7 @@ interface IResult {
 }
 
 const BaseTable: React.FC<IbaseTable> = (props) => {
-    const { columns, query, dataSource: data, pagination, rowHighlight, ...ommited } = props
+    const { columns, query, dataSource: data, pagination, rowHighlight, editTable, editForm, ...ommited } = props
 
     const ref_page = useRef({ current: 1, pageSize: 10 }) 
     const ref_auto = useRef<boolean | undefined>(query?.auto ?? true)
@@ -79,7 +85,8 @@ const BaseTable: React.FC<IbaseTable> = (props) => {
 
 
     const tableProps: TableProps<any> = {
-        rowClassName:props.rowClassName ?? rowHighlight ? ()=>'table_card':undefined,
+        rowClassName:props.rowClassName ?? rowHighlight ? ()=>'table_card': undefined,
+        components: editTable ? { body: { cell: EditableCell } }: undefined, // 单元格可编辑?
         size: 'small',
         dataSource,
         rowKey: 'id',
@@ -101,9 +108,11 @@ const BaseTable: React.FC<IbaseTable> = (props) => {
         },
         ...ommited,
     }
-
+    //-----------
     return (
-        <Table {...(tableProps)} />
+        <Form form={editForm} component={false}>
+            <Table {...(tableProps)} />
+        </Form>
     )
 };
 

@@ -29,6 +29,9 @@ export const rootRouter: RouteObject[] = [
 			{
 				path: "/app/AuthorityCenter",
 				label:"权限中心",
+				handle:{
+					requiresAuth: true
+				},
 				children:[
 					{
 						path: "/app/AuthorityCenter/UserAdmin",

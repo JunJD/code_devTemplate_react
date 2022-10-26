@@ -8,16 +8,21 @@ export default [
   {
     title: '菜单名称',
     dataIndex: 'label',
-    align:'center'
+    align:'center',
+    editItem: true
   },
   {
     title: '菜单路径',
     dataIndex: 'key',
-    align:'center'
+    align:'center',
+    editItem: true
   },
   {
     title: '菜单Icon',
     dataIndex: 'icon',
-    align:'center'
+    align:'center',
+    editItem: true,
+    inputType: 'select',
+    options: [{label:'UsergroupAddOutlined',value:'UsergroupAddOutlined'},{label:'UserOutlined',value:'UserOutlined'},{label:'SlackSquareOutlined',value:'SlackSquareOutlined'}]
   }
 ] as IColumn[]
