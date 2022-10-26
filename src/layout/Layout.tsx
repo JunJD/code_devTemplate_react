@@ -12,6 +12,7 @@ import "./index.less";
 import { setMenuList, updateCollapse } from "@src/redux/modules/menu/reducer";
 import myRequest from "@src/utils/myAxios";
 import { setAuthRouter } from "@src/redux/modules/auth/reducer";
+import { getCookie } from "@src/utils/cookie";
 
 const { Sider, Content } = Layout;
 
@@ -29,7 +30,8 @@ const LayoutIndex = () => {
 	const dispatch = useDispatch();
 	const { isCollapse } = useSelector((state: RootState) => state.menu);
 	useEffect(()=>{
-		myRequest( 'menu/get', {  } ).then(res=>{
+		const user_name = getCookie('userName') ? getCookie('userName'):''
+		myRequest( 'menu/get', { user_name } ).then(res=>{
 		  if(res.success){
 		  	dispatch(setMenuList(res.result.data))
 			const AuthRouter = res.result.data.map((item:any)=>AuthFlat(item)).flat(Infinity)

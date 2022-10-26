@@ -26,6 +26,7 @@ const MenuManagement: React.FC = () => {
       ..._columns,
       {
         title:'操作',
+        width:180,
         fixed: 'right' as const ,
         render:(record:{key:string})=>{
           const editable = isEditing(record);

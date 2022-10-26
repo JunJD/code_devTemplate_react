@@ -15,11 +15,11 @@ const root = ReactDOM.createRoot(
 root.render(
   <Provider store={store}>
     <PersistGate persistor={persistor}>
-    <BrowserRouter>
-      <ConfigProvider locale={zhCN}>
-        <App />
-      </ConfigProvider>
-    </BrowserRouter>
+      <BrowserRouter>
+        <ConfigProvider locale={zhCN}>
+          <App />
+        </ConfigProvider>
+      </BrowserRouter>
     </PersistGate>
   </Provider>
   
