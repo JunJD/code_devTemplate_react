@@ -6,14 +6,12 @@ const EditableCell:React.FC<any> = ( props ) => {
 
 
     const InputTable = useMemo(()=>{
-        console.log(inputType)
             switch (inputType) {
                 case "number":
                     return (
                         <InputNumber {...restProps}/>
                     )
                 case "select":
-                    console.log('select',111)
                     return (
                         <Select {...restProps} />
                     )

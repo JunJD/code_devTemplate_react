@@ -108,7 +108,7 @@ const BaseTable: React.FC<IbaseTable> = (props) => {
         },
         ...ommited,
     }
-    //-----------
+    
     return (
         <Form form={editForm} component={false}>
             <Table {...(tableProps)} />

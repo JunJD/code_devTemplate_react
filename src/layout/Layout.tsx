@@ -32,9 +32,8 @@ const LayoutIndex = () => {
 		myRequest( 'menu/get', {  } ).then(res=>{
 		  if(res.success){
 		  	dispatch(setMenuList(res.result.data))
-		  	dispatch(setAuthRouter(res.result.data.map((item:any)=>{
-				return AuthFlat(item)
-			}).flat(Infinity)))
+			const AuthRouter = res.result.data.map((item:any)=>AuthFlat(item)).flat(Infinity)
+		  	dispatch(setAuthRouter(AuthRouter))
 		  }
 		})
 	  },[])
