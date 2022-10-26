@@ -29,6 +29,18 @@
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
+    <script>
+       //按照宽度1920图算， 1rem = 10px;
+       (function (win, doc) {
+         function changeSize() {
+           doc.documentElement.style.fontSize = doc.documentElement.clientWidth / 192 + 'px';
+          console.log(100 * doc.documentElement.clientWidht / 192)
+         }
+         changeSize();
+         win.addEventListener('resize', changeSize, false);
+       
+      })(window, document);
+    </script>
     <!--
       This HTML file is a template.
       If you open it directly in the browser, you will see an empty page.

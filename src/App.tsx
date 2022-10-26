@@ -5,7 +5,7 @@ import useNowSize from './hooks/useNowSize';
 function App() {
   const [ nowSize ] = useNowSize()
   return (
-    <div style={{width:nowSize*1920,margin:'0 auto',position:"relative",height:"100vh"}}>
+    <div style={{width:nowSize*Number(process.env.REACT_APP_SCREENWIDTH),margin:'0 auto',position:"relative",height:"100vh"}}>
       <AuthRouter>
         <Router />
       </AuthRouter>
