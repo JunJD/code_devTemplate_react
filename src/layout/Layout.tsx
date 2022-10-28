@@ -74,7 +74,7 @@ const LayoutIndex = () => {
 			  onClose={()=>{}}
  			  message={
  			    <Marquee pauseOnHover gradient={false}>
- 			      构思表结构中...
+ 			      我是dingjunjie, 请联系wx ： DiNgJuNjIE_22； 我是dingjunjie, 请联系wx ： DiNgJuNjIE_22； 我是dingjunjie, 请联系wx ： DiNgJuNjIE_22
  			    </Marquee>
  			  }
  		/>
