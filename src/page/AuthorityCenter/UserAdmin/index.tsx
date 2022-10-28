@@ -8,7 +8,8 @@ import { debounce } from 'lodash';
 import openModal from '@src/utils/openModal';
 import LoginDrawer from './LoginDrawer';
 import myRequest from '@src/utils/myAxios';
-
+import MentionsInput from '@src/page/component/mentionsInput';
+import { DataSourceObject } from '@src/page/component/mentionsInput';
 const scrollX = document.body.clientWidth - 220 - 100
 
 const MenuManagement: React.FC = () => {
@@ -61,6 +62,34 @@ const MenuManagement: React.FC = () => {
         },
     ]
   },[ dynamicColumns ] )
+
+  const data:DataSourceObject[]=[ 
+      {value:'10', label:"扬尼斯·阿德托昆博" },
+      {value:'11', label:"卢卡·东契奇"},
+      {value:'12', label:"乔尔·恩比德"},
+      {value:'13', label:"尼古拉·约基奇"},
+      {value:'14', label:"帕斯卡尔·西亚卡姆"},
+      {value:'15', label:"克里斯塔普斯·波尔津吉斯"},
+      {value:'16', label:"艾尔·霍福德"},
+      {value:'17', label:"尼古拉·武切维奇"}, 
+      {value:'18', label:"鲁迪·戈贝尔"},
+      {value:'19', label:"本·西蒙斯"},
+  ] 
+
+  const handleFetch = (query: string) => {
+    return new Promise<DataSourceObject[]>(resolve=>{
+      setTimeout(() => {
+        console.log(query,'<===这是值')
+        const result = data.filter(item=>{
+          if( !query ) return true
+          return item.label?.includes(query) || item.value?.includes(query)
+        })
+        resolve(result) // 模拟一下异步请求
+      }, 1000);
+    })
+  }
+
+
 
   const content = useMemo(()=>(
     <Space direction="vertical" size="middle" style={{ display: 'flex' }}>
@@ -117,7 +146,7 @@ const MenuManagement: React.FC = () => {
 
       <Tabs
         defaultActiveKey="1"
-        onChange={()=>{}}
+        onChange={ ( ) => { } }
         items={[
           {
             label: <h2>Admin</h2>,
@@ -125,9 +154,17 @@ const MenuManagement: React.FC = () => {
             children: content,
           },
           {
-            label: <h2>User</h2>,
+            label: <h2>MentionsInput</h2>,
             key: '2',
-            children: `Content of Tab Pane 2`,
+            children: 
+
+            <MentionsInput
+              fetchSuggestions={ handleFetch }
+              data={data}
+              placeholder='请输入'
+              size="large"
+            />,
+
           }
         ]}
       />
