@@ -1,33 +1,41 @@
-import React, { ReactElement, ReactNode } from 'react'
+import { ConfigProvider } from 'antd'
+import React, { ReactNode } from 'react'
 import * as ReactDOM from 'react-dom'
-
-interface IConfig {
-  onClose:()=>void
-}
-
-function openModal(MyModal:any, config:IConfig) {
+import zhCN from 'antd/lib/locale/zh_CN'
+function openModal(MyModal:any, config: any) {
   const div = document.createElement('div')
   document.body.appendChild(div)
 
   let currentConfig = {
     ...config,
     visible: true,
-    onClose: () => {
-      if (config.onClose) {
-        config.onClose()
+    onCancel: () => {
+      if (config.onCancel) {
+        config.onCancel()
+      }
+      close()
+    },
+    onOk: function() {
+      if (config.onOk) {
+        config.onOk(...arguments)
       }
       close()
     },
   }
 
-  function render(props:any) {
-    // 单线程所以异步
+  function render(props: any) {
+
     setTimeout(() => {
+
       ReactDOM.render(
-        <MyModal {...props} />
-        ,div
+        <ConfigProvider locale={zhCN}>
+           <MyModal {...props} />
+        </ConfigProvider>
+          
+        ,
+        div
       )
-    },0)
+    })
   }
 
   function destroy() {
@@ -41,7 +49,7 @@ function openModal(MyModal:any, config:IConfig) {
     render({
       ...currentConfig,
       visible: false,
-      afterClose:destroy
+      afterClose: destroy,
     })
   }
 

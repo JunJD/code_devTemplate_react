@@ -1,30 +1,28 @@
 import { useEffect } from "react";
 import { Outlet } from "react-router-dom";
-import { Layout, message } from "antd";
+import { Alert, Layout, message, Segmented } from "antd";
 // import { getAuthorButtons } from "@/api/modules/login";
 import { RootState, useDispatch, useSelector } from "@src/redux";
 import LayoutMenu from "./components/Menu";
 import LayoutHeader from "./components/Header";
-import {
-	LoginOutlined
-  } from '@ant-design/icons';
-import "./index.less";
+import { LoginOutlined } from '@ant-design/icons';
+import Marquee from 'react-fast-marquee';
+
 import { setMenuList, updateCollapse } from "@src/redux/modules/menu/reducer";
 import myRequest from "@src/utils/myAxios";
 import { setAuthRouter } from "@src/redux/modules/auth/reducer";
 import { getCookie } from "@src/utils/cookie";
-
+import { createFromIconfontCN } from '@ant-design/icons';
+import "./index.less";
+import { AuthFlat } from "@src/utils/authFlat";
 const { Sider, Content } = Layout;
 
-function AuthFlat(obj: { key: any; children: string | any[]; }, res:any[] = []) { // 默认初始结果数组为[]
-	res.push(`/app/${obj.key}`); 
-	if (obj.children && obj.children.length) {
-	  for(const item of obj.children) {
-		AuthFlat(item, res);
-	  }
-	}
-	return res;
+const handleModelBackground = () => {
+
 }
+const IconFont = createFromIconfontCN({
+	scriptUrl: '//at.alicdn.com/t/c/font_3734296_gtlqa7xvafn.js',
+  });
 
 const LayoutIndex = () => {
 	const dispatch = useDispatch();
@@ -33,7 +31,7 @@ const LayoutIndex = () => {
 		const user_name = getCookie('userName') ? getCookie('userName'):''
 		myRequest( 'menu/get', { user_name } ).then(res=>{
 		  if(res.success){
-		  	dispatch(setMenuList(res.result.data))
+		  	dispatch(setMenuList(res.result.data.map((item: { path: any; })=>({...item,key:item.path}))))
 			const AuthRouter = res.result.data.map((item:any)=>AuthFlat(item)).flat(Infinity)
 		  	dispatch(setAuthRouter(AuthRouter))
 		  }
@@ -68,16 +66,49 @@ const LayoutIndex = () => {
 	}
 
 	return (
-		// 这里不用 Layout 组件原因是切换页面时样式会先错乱然后在正常显示，造成页面闪屏效果
+		<>
+ 		<Alert
+			style={{position:'absolute',top:0,zIndex:999,textAlign:'center',  width:"100%"}}
+ 			  banner
+			  closable
+			  onClose={()=>{}}
+ 			  message={
+ 			    <Marquee pauseOnHover gradient={false}>
+ 			      构思表结构中...
+ 			    </Marquee>
+ 			  }
+ 		/>
 		<section className="container">
+			
 			<Sider  width={220} collapsed={isCollapse}  theme="dark" >
 				<div style={{display:'flex',flexDirection: "column",height:"100%",justifyContent: "space-between"}}>
 					<div>
 						<div className="logo" />
 						<LayoutMenu></LayoutMenu>
 					</div>
+					<div>
+
+					<div className="modelBackground">
+						<Segmented
+						  size="large"
+						  defaultValue='baitianmoshi'
+						  onChange={handleModelBackground}
+						  options={[
+						    {
+						      value: 'baitianmoshi',
+						      icon:   <IconFont type="icon-baitianmoshi" />,
+						    },
+						    {
+						      value: 'heiyemoshi',
+						      icon:   <IconFont type="icon-heiyemoshi" />,
+						    },
+						  ]}
+						/>
+					</div>
+
 					<div  className="loginOut" onClick={handleLoginOut}>
 						<LoginOutlined /><span className={isCollapse? 'dispalyNone':''} ><span>LoginOut</span></span>
+					</div>
 					</div>
 				</div>
 				
@@ -97,6 +128,7 @@ const LayoutIndex = () => {
 				{/* <LayoutFooter></LayoutFooter> */}
 			</Layout>
 		</section>
+		</>
 	);
 };
 

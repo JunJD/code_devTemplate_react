@@ -1,10 +1,13 @@
 import BaseTable, { IColumn } from '@src/page/components/baseTable';
 import _columns from './_colums';
-import React, { ChangeEvent, useMemo, useState } from 'react';
+import React, { ChangeEvent, useEffect, useMemo, useState } from 'react';
 import { Button, Col, Input, Row, Select, Space, Tabs } from 'antd';
 import { useDynamicColumns } from '@src/hooks/useDynamicColumns';
 import { SearchOutlined, HolderOutlined, PlusCircleOutlined } from '@ant-design/icons';
 import { debounce } from 'lodash';
+import openModal from '@src/utils/openModal';
+import LoginDrawer from './LoginDrawer';
+import myRequest from '@src/utils/myAxios';
 
 const scrollX = document.body.clientWidth - 220 - 100
 
@@ -12,14 +15,34 @@ const MenuManagement: React.FC = () => {
   const { columns: dynamicColumns, CtrlButton } = useDynamicColumns(_columns )
   const [ query, setQuery ] = useState( {
     url: 'admin/get',
-    params: { fuzzy: "" }
+    params:{ fuzzy:'' }
   } )
 
+  const [options, setOptions ] = useState([])
+  useEffect(()=>{
+    myRequest('role/get',{}).then(
+      res=>{
+          if(res.success) {
+            setOptions(res.result.data.map((item: { id: any; role: { id: any; label: any; }; })=>({key:item.id ,value:item.role.id, label: item.role.label})))
+          }
+      },
+  )
+  },[])
+  
   const handleSearch=()=>{
     return debounce((e:ChangeEvent<HTMLInputElement>)=>{
       const fuzzy = e.target.value
-      setQuery( { ...query, params: { fuzzy } } )
+      setQuery( { ...query, params: {fuzzy } } )
     },500)
+  }
+
+  const handleAddNewAdmin=()=>{
+    openModal(LoginDrawer,{
+      options,
+      onOk:()=>{
+        setQuery( { ...query, params: { ...query.params } } )
+      }
+    })
   }
 
   const finallyColumns = useMemo( () => {
@@ -64,7 +87,7 @@ const MenuManagement: React.FC = () => {
             showSearch
             placeholder="Select a role"
             onChange={()=>{}}
-            options={[{label:'测试',value:"121"}]}
+            options={options}
             optionFilterProp="label"
           />
         </Col>
@@ -84,7 +107,7 @@ const MenuManagement: React.FC = () => {
           <span style={{fontWeight:700,fontSize:"32px"}} >User&Admin</span>
         </Col>
       <Col span={6} offset={14}>
-        <Button type="primary" icon={<PlusCircleOutlined />} size="large">
+        <Button type="primary" icon={<PlusCircleOutlined />} size="large" onClick={handleAddNewAdmin} >
           Add newAdmin
         </Button>
       </Col>

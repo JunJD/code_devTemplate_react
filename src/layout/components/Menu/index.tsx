@@ -9,7 +9,7 @@ import Icon from '@src/page/component/Icon';
 type MenuItem = Required<MenuProps>['items'][number];
 interface ImapTree {
   children?: any[],
-  key: any,
+  path: any,
   label: any,
   icon: string
 }
@@ -25,7 +25,7 @@ const baseItems:MenuItem[] = [
 const mapTree = (org: ImapTree):any => {
   const haveChildren = Array.isArray(org.children) && org.children.length > 0;
   return {
-       key : org.key,
+       key : org.path,
        label: org.label,
        icon: <Icon icon={org.icon}/>,
        children:haveChildren ? org?.children?.map((i:ImapTree) => mapTree(i)) : undefined,
