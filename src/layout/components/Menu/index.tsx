@@ -45,8 +45,9 @@ const LayoutMenu: React.FC = () => {
   }
 
   return (
-   <div className='menu'>
+   <div className='menu' >
      <Menu
+    
       mode="inline"
       theme="dark"
       items={items}

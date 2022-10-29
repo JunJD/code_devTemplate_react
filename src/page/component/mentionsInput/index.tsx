@@ -1,4 +1,4 @@
-import React,{ChangeEvent,KeyboardEvent,useEffect,useRef,useState}  from "react";
+import React,{ChangeEvent,KeyboardEvent,useCallback,useEffect,useRef,useState}  from "react";
 import { SizeType } from "antd/lib/config-provider/SizeContext";
 import { Input,InputProps } from "antd";
 import useDebounce from "./useDebounce";
@@ -50,8 +50,17 @@ const MentionsInput:React.FC<AutocompleteProps>=(props)=>{
 
     useEffect(()=>{
         if( valueDebounce && isnetwork.current && valueDebounce[0] === '@' ){
+            const finallyData = valueDebounce.slice( 1 )
+            if( data ) { // 如果传了data而不是异步请求则优先使用data数据
+                setShowData( data.filter(item=>{
+                  if( !finallyData ) return true
+                  return item.label?.includes( finallyData ) || item.value?.includes( finallyData )
+                }) )
+                return 
+            }
+
             setLoading( true )
-            const resultPromise= fetchSuggestions && fetchSuggestions( valueDebounce.slice( 1 ) )
+            const resultPromise= fetchSuggestions && fetchSuggestions( finallyData )
             if( resultPromise instanceof Promise ){
                 resultPromise?.then(
                     data => {
@@ -61,26 +70,14 @@ const MentionsInput:React.FC<AutocompleteProps>=(props)=>{
                 )
             }
         }    
-    },[ valueDebounce, fetchSuggestions ])
+    },[ valueDebounce, fetchSuggestions, data ])
 
 
     const renderTemplate = ( item: DataSourceType )=>{
+        console.log(item)
         // 每项可自由定制
         return renderOption? renderOption( item ): item?.label || item.value || undefined
     }
-
-    
-    const handleData=( e: ChangeEvent< HTMLInputElement > ) => {
-        isnetwork.current = true
-        const resultShow = e.target.value.trim()
-        setInputValue( resultShow )
-        if( !valueDebounce ){
-            const setData = data?.filter(( item )=>{
-                return item.value.includes( resultShow )
-        }) 
-        setShowData( setData )
-        }
-    };
 
     const handleshow = ( e: React.FocusEvent< HTMLElement, Element > )=>{
         setInputValue( '' )
@@ -121,7 +118,7 @@ const MentionsInput:React.FC<AutocompleteProps>=(props)=>{
                 onKeyDown={( e ) => { handleKeyDown( e ) }}
                 value={ inputValue }
                 onBlur={( e ) => { handleshow( e ) }}
-                onChange={ handleData }
+                onChange={( e: ChangeEvent< HTMLInputElement > )=>{ isnetwork.current = true; setInputValue( e.target.value.trim() ) }}
                 size={size}
                 { ...reseProps }
             />
