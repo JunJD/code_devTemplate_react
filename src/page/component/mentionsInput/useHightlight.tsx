@@ -9,8 +9,17 @@ function useHightlight(showData: any) {
         setHightlightIndex( index )
     }
 
-    const setKeyCode = (value: keyCode) => {
-        const Index = value === 'ArrowDown'?hightlightIndex + 1: hightlightIndex - 1
+    const setKeyCode = ( value: keyCode ) => {
+        let Index;
+        
+        if(  value === 'ArrowDown' ) {
+            Index = hightlightIndex + 1
+        } else if( value === 'ArrowUp'  ){
+            Index = hightlightIndex - 1
+        }else {
+            Index = hightlightIndex
+        }
+
         hightlight( Index )
     }
 
