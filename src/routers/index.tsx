@@ -6,6 +6,7 @@ import ErrorBoundary from '@src/page/ErrorBoundary';
 import lazyLoad from './utils/lazyLoad';
 import UserAdmin from '@src/page/AuthorityCenter/UserAdmin';
 import MenuManagement from '@src/page/AuthorityCenter/MenuManagement';
+import MentionsInputDemo from '@src/page/CoderJunUI/MentionsInput';
 export interface RouteObject extends  NonIndexRouteObject{
 	label?:string,
 	children?:RouteObject[]
@@ -51,6 +52,24 @@ export const rootRouter: RouteObject[] = [
 					},
 				]
 			},
+			{
+				path: "/app/CoderJunUI",
+				label:"CJ_UI",
+				handle:{
+					requiresAuth: true
+				},
+				children:[
+					{
+						path: "/app/CoderJunUI/MentionsInput",
+						element: <MentionsInputDemo/>,
+						label:"input提及",
+						handle:{
+							requiresAuth: true
+						}
+					}
+				]
+			},
+
 		]
 	},
 	{
