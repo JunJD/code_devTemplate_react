@@ -21,10 +21,10 @@ const MenuManagement: React.FC = () => {
 
   const [options, setOptions ] = useState([])
   useEffect(()=>{
-    myRequest('role/get',{}).then(
+    myRequest('role/get/all',{}).then(
       res=>{
           if(res.success) {
-            setOptions(res.result.data.map((item: { id: any; role: { id: any; label: any; }; })=>({key:item.id ,value:item.role.id, label: item.role.label})))
+          setOptions(res.result.data.map((item: { id: any; label: any;})=>({key:item.id + item.label ,value:item.id, label: item.label})))
           }
       },
   )

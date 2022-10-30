@@ -7,7 +7,7 @@ function Home() {
   return (
     <div className="App">
         HOME
-        <Button>我是按钮</Button>
+        <Button type='primary'>我是按钮</Button>
     </div>
   );
 }

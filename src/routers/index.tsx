@@ -6,6 +6,7 @@ import ErrorBoundary from '@src/page/ErrorBoundary';
 import lazyLoad from './utils/lazyLoad';
 import UserAdmin from '@src/page/AuthorityCenter/UserAdmin';
 import MenuManagement from '@src/page/AuthorityCenter/MenuManagement';
+import RoleManagement from '@src/page/AuthorityCenter/RoleManagement';
 import MentionsInputDemo from '@src/page/CoderJunUI/MentionsInput';
 export interface RouteObject extends  NonIndexRouteObject{
 	label?:string,
@@ -46,6 +47,14 @@ export const rootRouter: RouteObject[] = [
 						path: "/app/AuthorityCenter/MenuManagement",
 						element: <MenuManagement/>,
 						label:"菜单管理",
+						handle:{
+							requiresAuth: true
+						}
+					},
+					{
+						path: "/app/AuthorityCenter/RoleManagement",
+						element: <RoleManagement/>,
+						label:"角色管理",
 						handle:{
 							requiresAuth: true
 						}

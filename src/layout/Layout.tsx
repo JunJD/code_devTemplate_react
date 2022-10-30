@@ -1,7 +1,6 @@
 import { useEffect } from "react";
 import { Outlet } from "react-router-dom";
-import { Alert, Layout, message, Segmented } from "antd";
-// import { getAuthorButtons } from "@/api/modules/login";
+import { Alert, Layout, message } from "antd";
 import { RootState, useDispatch, useSelector } from "@src/redux";
 import LayoutMenu from "./components/Menu";
 import LayoutHeader from "./components/Header";
@@ -12,17 +11,10 @@ import { setMenuList, updateCollapse } from "@src/redux/modules/menu/reducer";
 import myRequest from "@src/utils/myAxios";
 import { setAuthRouter } from "@src/redux/modules/auth/reducer";
 import { getCookie } from "@src/utils/cookie";
-import { createFromIconfontCN } from '@ant-design/icons';
 import "./index.less";
 import { AuthFlat } from "@src/utils/authFlat";
 const { Sider, Content } = Layout;
 
-const handleModelBackground = () => {
-
-}
-const IconFont = createFromIconfontCN({
-	scriptUrl: '//at.alicdn.com/t/c/font_3734296_gtlqa7xvafn.js',
-  });
 
 const LayoutIndex = () => {
 	const dispatch = useDispatch();
@@ -80,31 +72,13 @@ const LayoutIndex = () => {
  		/>
 		<section className="container">
 			
-			<Sider  width={220} collapsed={isCollapse}  theme="dark" >
+			<Sider  width={220} collapsed={isCollapse}  theme="light" >
 				<div style={{display:'flex',flexDirection: "column",height:"100%",justifyContent: "space-between"}}>
 					<div>
 						<div className="logo" />
 						<LayoutMenu></LayoutMenu>
 					</div>
 					<div>
-
-					<div className="modelBackground">
-						<Segmented
-						  size="large"
-						  defaultValue='baitianmoshi'
-						  onChange={handleModelBackground}
-						  options={[
-						    {
-						      value: 'baitianmoshi',
-						      icon:   <IconFont type="icon-baitianmoshi" />,
-						    },
-						    {
-						      value: 'heiyemoshi',
-						      icon:   <IconFont type="icon-heiyemoshi" />,
-						    },
-						  ]}
-						/>
-					</div>
 
 					<div  className="loginOut" onClick={handleLoginOut}>
 						<LoginOutlined /><span className={isCollapse? 'dispalyNone':''} ><span>LoginOut</span></span>
@@ -113,7 +87,7 @@ const LayoutIndex = () => {
 				</div>
 				
 			</Sider>
-			<Layout>
+			<Layout >
 				<LayoutHeader></LayoutHeader>
 				{/* <LayoutTabs></LayoutTabs> */}
 				<Content>

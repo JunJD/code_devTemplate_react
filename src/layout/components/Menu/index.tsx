@@ -49,7 +49,7 @@ const LayoutMenu: React.FC = () => {
      <Menu
     
       mode="inline"
-      theme="dark"
+      theme="light"
       items={items}
       onSelect={onSelect}
     />
