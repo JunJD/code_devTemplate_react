@@ -2,13 +2,13 @@ import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import './index.less'
 import { Button, Card, Col, message, Row } from 'antd'
-import Video from '@src/page/component/Assets/Video' // 不在assets/video文件的视频无法使用此组件
+import LOTTIE_ANIM_JSON from "./../../assets/lotties/bg.json";
 import LoginForm from './LoginForm'
 import myRequest from '@src/utils/myAxios'
 import { setCookie } from '@src/utils/cookie'
 import { useDispatch } from "@src/redux";
 import { setAuthRouter } from '@src/redux/modules/auth/reducer'
-import { getlocalStorageToken } from "@src/utils/Token";
+import Lottie from '../component/Lottie'
 export interface IRequestLoginParams {
   name: string,
   password: string,
@@ -20,6 +20,7 @@ const Login: React.FC  = () => {
   const navigate = useNavigate()
   const [loading, setLoading] = useState<boolean>(false);
   const requestLogin = ({ name, password, remember }: IRequestLoginParams) => {
+    console.log(name, password, remember)
     setLoading(true);
     myRequest( `${process.env.REACT_APP_loginPath}`, { name, password } ).then(
         res=>{
@@ -45,19 +46,15 @@ const Login: React.FC  = () => {
     )
   }
   return (
-    
-    <div  className="content">
-      
-    <Video ext='mp4' name='login_bg_media'/>
-
-    <div className='Loginpra'>
-    <Row className='Loginrow'>
-      <Col push={18} span={6}>
-            <LoginForm onLogin={requestLogin} loading={loading}/>
-      </Col>
-    </Row>
-      
-    </div>
+    <div className='containerLogin' >
+      <Row>   
+        <Col span={17} push={1} >
+          <Lottie animationData={ LOTTIE_ANIM_JSON }  />
+        </Col>
+        <Col span={5}>
+              <LoginForm onLogin={requestLogin} loading={loading}/>
+        </Col>
+      </Row>
     </div>
   )
 }

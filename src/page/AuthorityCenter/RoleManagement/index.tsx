@@ -26,6 +26,7 @@ const RoleManagement = () => {
     return (
         <div className="roleMContainer">
                     <Card
+                        hoverable
                         style={{ width: 300, marginTop: 16,color: '#444fff', cursor: "pointer" }}
                     >
                         <div style={{fontSize:'60px',textAlign:'center',color:'#444fff'}}><Icon icon="PlusOutlined"/></div>
@@ -33,6 +34,7 @@ const RoleManagement = () => {
             { roleData.map(item=>{
                 return (
                     <Card
+                        hoverable
                         style={{ width: 300, marginTop: 16 }}
                         actions={[
                         <SettingOutlined key="setting" />,

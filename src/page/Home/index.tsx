@@ -1,14 +1,10 @@
-import React from 'react';
-import '@src/page/Home/index.less';
-import {Button} from 'antd'
-
+import React, { useState } from 'react';
+import './index.less';
+import MaterialInput from '@src/page/component/materialInput';
 function Home() {
 
   return (
-    <div className="App">
-        HOME
-        <Button type='primary'>我是按钮</Button>
-    </div>
-  );
+    <MaterialInput field='userName' label='xingming' size="mini" />
+  )
 }
 export default Home;

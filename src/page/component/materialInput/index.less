@@ -1,0 +1,78 @@
+@formItem_width : 25rem;
+@formItem_margin-top : 4rem;
+@formItem_font-size : 2rem;
+@label_font-size : @formItem_font-size *8 / 9;
+
+.form-item {
+    margin-top: @formItem_margin-top;
+    width: @formItem_width ;
+    font-size: @formItem_font-size !important;
+    position: relative;
+    border-bottom: solid #5264ae5a 1px;
+    &.block{
+        width: 100% !important;
+    }
+    input{
+      cursor: pointer;
+      width: 100%;
+      outline: none;
+      border: none;
+    }
+    input:focus ~ .bar{
+      width: 100%;
+    }
+    input:valid ~ label,
+    input:focus ~ label{
+      color: #5264ae;
+      transform: translateY( -40px );
+    }
+    .bar{
+      position: absolute;
+      width: 0px;
+      height: .1rem;
+      bottom: 0;
+      left: 50%;
+      transform: translate( -50%, -50% );
+      background-color: #5264ae;
+      transition: all 0.4s ease;
+    }
+  
+    label{
+      transition: all 0.4s ease;
+      cursor: pointer;
+      font-size: @label_font-size !important;
+      position: absolute;
+      top: 50%;
+      transform: translate( 0, -50% );
+      left: 0px;
+  
+    }
+
+
+    &.materialInput_large{
+        width: @formItem_width * 1.3 ;
+        margin-top: @formItem_margin-top * 1.3 !important;
+        font-size: @formItem_font-size * 1.1 !important;
+        label{
+            font-size: @label_font-size * 1.1 !important;
+        }
+    }
+    &.materialInput_small{
+        width: @formItem_width * 0.8 ;
+        margin-top: @formItem_margin-top * 0.8 !important;
+        font-size: @formItem_font-size * 0.8 !important;
+        label{
+            font-size: @label_font-size * 0.8 !important;
+        }
+    }
+    &.materialInput_mini{
+        width: @formItem_width * 0.5;
+        margin-top: @formItem_margin-top * 0.5 !important;
+        font-size: @formItem_font-size * 0.5 !important;
+        label{
+            font-size: @label_font-size * 0.5 !important;
+        }
+    }
+
+  }
+  

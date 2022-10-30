@@ -5,6 +5,7 @@ import { getCookie } from '@src/utils/cookie';
 import { IRequestLoginParams } from '@src/page/Login'
 import './index.less'
 import Icon from '../component/Icon';
+import MaterialInput from '../component/materialInput';
 interface ILoginFormProps {
   onLogin: ( values: IRequestLoginParams )=> void,
   loading: boolean
@@ -25,8 +26,7 @@ const LoginForm: React.FC<ILoginFormProps> = ({ onLogin, loading }) => {
     onLogin( form.getFieldsValue() )
   }
   return (
-    <Card hoverable style={{borderTop:'5px solid #444CCC',width:"300px"}}>
-      {/* <Space direction="vertical" size="middle" > */}
+    <Card hoverable className='proForm'>
           <div className='proTitle'>
             
             <span>欢迎登录<Icon icon="icon-lanling-zaijianxiangmu" /></span>
@@ -34,6 +34,7 @@ const LoginForm: React.FC<ILoginFormProps> = ({ onLogin, loading }) => {
           </div>
           
           <Form
+            className='form_style'
             form={form}
             initialValues={{ remember: true }}
           >
@@ -41,17 +42,13 @@ const LoginForm: React.FC<ILoginFormProps> = ({ onLogin, loading }) => {
               name="name"
               rules={[{ required: true, message: 'Please input your name!' }]}
             >
-              <Input prefix={<UserOutlined />} placeholder="账号" />
+                <MaterialInput field='userName' label='账号' size="large" />
             </Form.Item>
             <Form.Item
               name="password"
               rules={[{ required: true, message: 'Please input your Password!' }]}
             >
-              <Input
-                prefix={<LockOutlined />}
-                type="password"
-                placeholder="密码"
-              />
+              <MaterialInput field='password' label='密码' type='password' size="large" />
             </Form.Item>
             <Form.Item>
               <Form.Item name="remember" valuePropName="checked" noStyle>
