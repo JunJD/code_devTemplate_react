@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import './index.less';
-import { useLottie } from "lottie-react"; // 接受json格式文件 转成动画
+import { useLottie, useLottieInteractivity } from "lottie-react"; // 接受json格式文件 转成动画
 import classNames from 'classnames';
 
 type ISize = 'large' | 'middle' | 'small' | 'mini'
@@ -27,13 +27,29 @@ const Lottie:FC<ILottie> = (props) => {
     animationData: animationData,
     loop: true,
     autoplay: true,
+    // initialSegment:[]
   };
   
-  const { View } = useLottie( options, style );
-
+  const lottieObj = useLottie( options, style );
+  const Animation = useLottieInteractivity({
+    lottieObj,
+    mode: "cursor",
+    actions: [
+      {
+        position: { x: [0, 1], y: [-1, 2] },
+        type: "stop",
+        frames: [0, 10000],
+      },
+      {
+        position: { x: -1, y: -1 },
+        type: "play",
+        frames: [100],
+      },
+    ],
+  });
   return (
     <div className={ classs } >
-      { View }
+       {lottieObj.View} 
     </div>
   )
 }

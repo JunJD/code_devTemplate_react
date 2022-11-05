@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import './index.less'
 import { Button, Card, Col, message, Row } from 'antd'
-import LOTTIE_ANIM_JSON from "./../../assets/lotties/bg.json";
+import LOTTIE_ANIM_JSON from "./../../assets/lotties/login非logo.json";
 import LoginForm from './LoginForm'
 import myRequest from '@src/utils/myAxios'
 import { setCookie } from '@src/utils/cookie'

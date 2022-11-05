@@ -1,10 +1,13 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import './index.less';
-import MaterialInput from '@src/page/component/materialInput';
-function Home() {
 
+import Lottie from "@src/page/component/Lottie";
+import ANIJSON from '@src/assets/lotties/login非logo.json'
+function Home() {
   return (
-    <MaterialInput field='userName' label='xingming' size="mini" />
-  )
+    <div style={{display:'flex'}} >
+      <Lottie animationData={ANIJSON} />
+    </div>
+  );
 }
 export default Home;
