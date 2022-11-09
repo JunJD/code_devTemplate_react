@@ -95,7 +95,6 @@ export const rootRouter: RouteObject[] = [
 		element: <Login />,
 		label:'登录页面'
 	},
-	// ...routerArray,
 	{
 		path: "*",
 		element: <Navigate to="/404" />

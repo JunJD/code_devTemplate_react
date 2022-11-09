@@ -7,6 +7,7 @@ import { persistor, store } from '@src/redux';
 import zhCN from 'antd/es/locale/zh_CN';
 import { PersistGate } from "redux-persist/integration/react";
 import { ConfigProvider } from 'antd';
+import '@src/style/index.less'
 import '@src/index.less';
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement

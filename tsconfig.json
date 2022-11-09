@@ -38,6 +38,6 @@
       		"@store/*": ["src/store/*"],
 		}
 	},
-	"include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "vite.config.ts"],
+	"include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "craco.config.js"],
 	"exclude": ["node_modules", "dist", "**/*.js"]
 }

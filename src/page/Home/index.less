@@ -1,41 +1,20 @@
-.form-item {
-  width: 300px;
-  position: relative;
-  border-bottom: solid #5264ae5a 1px;
-  input{
-    cursor: pointer;
-    width: 100%;
-    outline: none;
-    border: none;
+.layout{
+  // color: @bgColor;
+  display: flex;
+  flex-direction:column;
+  height: 100vh;
+  &--ceshi{
+    color: #fff;
   }
-  input:focus ~ .bar{
-    width: 100%;
+  .aside{
+    width: 200px;
+    background-color: aqua;
+    flex: 1;
+    // flex-shrink: 0;
   }
-  input:valid ~ label,
-  input:focus ~ label{
-    color: #5264ae;
-    transform: translateY( -40px );
-    font-size: 16px;
-  }
-  .bar{
-    position: absolute;
-    width: 0px;
-    height: 1px;
-    bottom: 0;
-    left: 50%;
-    transform: translate(-50%,-50%);
-    background-color: #5264ae;
-    transition: all 0.4s ease;
-  }
-
-  label{
-    transition: all 0.4s ease;
-    cursor: pointer;
-    font-size: 18px;
-    position: absolute;
-    top: 50%;
-    transform: translate(0,-50%);
-    left: 0px;
-
+  .main{
+    flex: 1;
+    background-color: aliceblue;
+    padding: 10px;
   }
 }
