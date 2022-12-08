@@ -98,6 +98,7 @@ function myRequest(apiName: string, data?: object, option?: object, getCookieArr
             return Promise.reject(res)
           }
         }).catch(function (error) {
+          
           var message = '系统异常';
           var code = -1000;
           if (error?.message?.includes('timeout')) {
@@ -107,6 +108,10 @@ function myRequest(apiName: string, data?: object, option?: object, getCookieArr
           if( error?.data && error.status){
             message = error.data;
             code = error.status;
+          }
+
+          if(error.data.error.code===0){
+            message = error.data.message
           }
 
           result = {
