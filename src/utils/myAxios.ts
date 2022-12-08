@@ -1,12 +1,13 @@
 import axios from "axios";
 import {notification} from 'antd'
 import { getlocalStorageToken, setlocalStorageToken } from "./Token";
-
+import { store } from "@src/redux";
 export interface IResReturn<T> {
   success: boolean,
   result: T,
   code: number,
-  message: string
+  message: string,
+  accessToken?: string
 }
 
 function getBaseUrl(apiUrl:string) {
@@ -41,14 +42,16 @@ const config = {
     'Content-Type': 'application/json;charset=UTF-8'
   },
 }
-
-let token = getlocalStorageToken()
+let {token} = store.getState().global;
 if (token) {
-  config.headers['Authorization'] = 'Bearer ' + token// 让每个请求携带token-- ['X-Token']为自定义key 请根据实际情况自行修改
+  config.headers['Authorization'] = 'Bearer ' + token
+}else{
+  config.headers['Authorization'] = 'Bearer ' + getlocalStorageToken() // 做了持久化存储，大概率不需要localStorage获取token
 }
 
 function myRequest(apiName: string, data?: object, option?: object, getCookieArr?: Array<string>) {
     let result:any;
+    let istoken = apiName===`${process.env.REACT_APP_loginPath}`
     return new Promise<IResReturn<any>>(function (resolve, reject) {
         axiosObejct({
           ...config,
@@ -62,25 +65,24 @@ function myRequest(apiName: string, data?: object, option?: object, getCookieArr
             if (data.result.success) {
               //业务
               if (data.result.hasOwnProperty('result')) {
-                resolve({
+                let resObj: IResReturn<any> = {
                   success: true,
                   result: data.result.result,
                   code: 200,
                   message: '请求成功'
-                });
-                if(apiName===`${process.env.REACT_APP_loginPath}`){
-                  setlocalStorageToken(res.data.accessToken);
                 }
+                if(istoken){resObj.accessToken = res.data.accessToken;setlocalStorageToken(res.data.accessToken)}
+                
+                resolve(resObj);
               } else {
-                resolve({
+                let resObj: IResReturn<any> = {
                   success: true,
                   result: data.result,
                   code: 200,
                   message: '请求成功'
-                });
-                if(apiName===`${process.env.REACT_APP_loginPath}`){
-                  setlocalStorageToken(res.data.accessToken);
                 }
+                if(istoken){resObj.accessToken = res.data.accessToken;setlocalStorageToken(res.data.accessToken)}
+                resolve(resObj);
               }
             } else {
               var _data$result, _data$result$error, _data$result2, _data$result3, _data$result3$error, _data$result4;

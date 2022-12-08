@@ -2,16 +2,15 @@ import { useLocation, Navigate } from "react-router-dom";
 import { rootRouter } from "@src/routers";
 import { searchRoute } from "./searchRoute";
 // import { HOME_URL } from "@/config/config";
-import { RootState, useSelector } from "@src/redux";
-import { getlocalStorageToken } from "@src/utils/Token";
+import { RootState, useDispatch, useSelector } from "@src/redux";
 
 /**
  * @description 路由守卫组件
  * */
 const AuthRouter = (props: { children: JSX.Element }) => {
-	// const { token } = useSelector((state: RootState) => state.global);
-	// * Dynamic Router(动态路由，根据后端返回的菜单数据生成的一维数组)
+	const dispatch = useDispatch()
 	const { authRouter } = useSelector((state: RootState) => state.auth);
+	const { token } = useSelector((state: RootState) => state.global);
 	
 	const { pathname } = useLocation();
 	const route = searchRoute(pathname, rootRouter);
@@ -20,8 +19,7 @@ const AuthRouter = (props: { children: JSX.Element }) => {
 		return props.children;
 	}
 	// * 判断是否有Token
-	if (!getlocalStorageToken()) {
-		// message.error('请先登录')
+	if (!token) {
 		return <Navigate to="/login" />
 	};
 

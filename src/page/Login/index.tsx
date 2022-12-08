@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import './index.less'
-import { Button, Card, Col, message, Row } from 'antd'
+import { Col, message, Row } from 'antd'
 import LOTTIE_ANIM_JSON from "./../../assets/lotties/login非logo.json";
 import LoginForm from './LoginForm'
 import myRequest from '@src/utils/myAxios'
 import { setCookie } from '@src/utils/cookie'
 import { useDispatch } from "@src/redux";
-import { setAuthRouter } from '@src/redux/modules/auth/reducer'
 import Lottie from '../component/Lottie'
+import { setToken } from '@src/redux/modules/global/reducer';
 export interface IRequestLoginParams {
   name: string,
   password: string,
@@ -20,14 +20,13 @@ const Login: React.FC  = () => {
   const navigate = useNavigate()
   const [loading, setLoading] = useState<boolean>(false);
   const requestLogin = ({ name, password, remember }: IRequestLoginParams) => {
-    console.log(name, password, remember)
     setLoading(true);
+
     myRequest( `${process.env.REACT_APP_loginPath}`, { name, password } ).then(
         res=>{
             if(res.success) {
             message.success('欢迎进入后台管理系统');
-            dispatch(setAuthRouter(['/ceshiyemian']))
-            // dispatch(setToken(token));
+            dispatch(setToken(res.accessToken!));
             // 登录成功后 判断是否选择了勾选密码
             if (remember) {
                 setCookie('userName', name, 30)
@@ -36,6 +35,7 @@ const Login: React.FC  = () => {
                  setCookie('userName', '', 30)
                  setCookie('userPwd', '', 30 )
               }
+
               setTimeout(() => {
                   navigate(`/${process.env.REACT_APP_homePath}`);
               }, 500);
