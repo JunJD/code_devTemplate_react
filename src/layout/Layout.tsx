@@ -1,11 +1,10 @@
 import { useEffect } from "react";
 import { Outlet } from "react-router-dom";
-import { Alert, Layout, message } from "antd";
+import { Layout, message } from "antd";
 import { RootState, useDispatch, useSelector } from "@src/redux";
 import LayoutMenu from "./components/Menu";
 import LayoutHeader from "./components/Header";
 import { LoginOutlined } from '@ant-design/icons';
-import Marquee from 'react-fast-marquee';
 
 import { setMenuList, updateCollapse } from "@src/redux/modules/menu/reducer";
 import myRequest from "@src/utils/myAxios";
@@ -59,17 +58,6 @@ const LayoutIndex = () => {
 
 	return (
 		<>
- 		<Alert
-			style={{position:'absolute',top:0,zIndex:999,textAlign:'center',  width:"100%"}}
- 			  banner
-			  closable
-			  onClose={()=>{}}
- 			  message={
- 			    <Marquee pauseOnHover gradient={false}>
- 			      我是dingjunjie, 请联系wx ： DiNgJuNjIE_22； 我是dingjunjie, 请联系wx ： DiNgJuNjIE_22； 我是dingjunjie, 请联系wx ： DiNgJuNjIE_22
- 			    </Marquee>
- 			  }
- 		/>
 		<section className="container">
 			
 			<Sider  width={220} collapsed={isCollapse}  theme="light" >
